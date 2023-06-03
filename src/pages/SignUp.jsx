@@ -1,9 +1,14 @@
 
 
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import OAuth from '../components/OAuth';
+import { getAuth, createUserWithEmailAndPassword , updateProfile } from "firebase/auth";
+import { db } from "../firebase";
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import {  toast } from 'react-toastify';
+
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,7 +18,68 @@ export default function SignUp() {
     password: '',
   });
   const { name , email , password } = formData;
+  const navigate = useNavigate();
 
+  function onSubmit(e) {
+e.preventDefault();
+// try {
+//   const auth = getAuth();
+//   const userCredential = createUserWithEmailAndPassword( auth , email , password );
+//   const user = userCredential.user;
+//   console.log(user);
+// } catch (error) {
+//   console.log(error);
+// }
+
+const auth = getAuth();
+createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in
+    const user = userCredential.user;
+    updateProfile(auth.currentUser , {
+      displayName: name
+    })
+    console.log(user);
+    
+    const formDataCopy = { ...formData };
+    delete formDataCopy.password;
+    formDataCopy.timeStamp = serverTimestamp();
+    // console.log(formDataCopy);
+    setDoc( doc( db , "users" , user.uid ) , formDataCopy ).then(
+      navigate("/")
+    );
+    // toast.success('Registro correcto !', {
+    //   position: "top-center",
+    //   autoClose: 5000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined,
+    //   theme: "dark",
+    //   });
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // console.log(error)
+    toast.error(errorMessage, {
+      position: "bottom-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+    // ..
+  });
+  
+
+  }
+  
   function onChange(e) {
     // console.log(e.target.value);
     setFormData((previus) => ({
@@ -34,7 +100,7 @@ export default function SignUp() {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form>
+          <form onSubmit={onSubmit} >
            
             <input
               type="text"
