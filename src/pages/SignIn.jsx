@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import OAuth from '../components/OAuth';
+import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { toast } from 'react-toastify';
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -10,6 +12,33 @@ export default function SignIn() {
     password: '',
   });
   const { email, password } = formData;
+  const navigate = useNavigate();
+
+  function onSubmit(e) {
+    e.preventDefault();
+
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        if (user) navigate('/');
+      })
+      .catch((error) => {
+        // console.log(error)
+        toast.error('credenciales incorrectas', {
+          position: 'bottom-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
+        // ..
+      });
+  }
 
   function onChange(e) {
     // console.log(e.target.value);
@@ -31,7 +60,7 @@ export default function SignIn() {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form>
+          <form onSubmit={onSubmit}>
             <input
               type="email"
               id="email"
@@ -87,14 +116,10 @@ export default function SignIn() {
               SIGN IN
             </button>
           </form>
-          <div className=' flex items-center my-2 before:border-t  before:flex-1  before:border-gray-400 after:border-t  after:flex-1  after:border-gray-400 '>
-            <p
-              className="text-center font-semibold mx-4"
-            >
-              OR
-            </p>
+          <div className=" flex items-center my-2 before:border-t  before:flex-1  before:border-gray-400 after:border-t  after:flex-1  after:border-gray-400 ">
+            <p className="text-center font-semibold mx-4">OR</p>
           </div>
-          <OAuth/>
+          <OAuth />
         </div>
       </div>
     </section>

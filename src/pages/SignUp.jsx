@@ -22,14 +22,7 @@ export default function SignUp() {
 
   function onSubmit(e) {
 e.preventDefault();
-// try {
-//   const auth = getAuth();
-//   const userCredential = createUserWithEmailAndPassword( auth , email , password );
-//   const user = userCredential.user;
-//   console.log(user);
-// } catch (error) {
-//   console.log(error);
-// }
+
 
 const auth = getAuth();
 createUserWithEmailAndPassword(auth, email, password)
