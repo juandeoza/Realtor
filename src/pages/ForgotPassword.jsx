@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import OAuth from '../components/OAuth';
+import { toast } from 'react-toastify';
+import { getAuth, sendEmailVerification, sendPasswordResetEmail } from 'firebase/auth';
 
 export default function ForgotPassword() {
   const [formData, setFormData] = useState({
@@ -8,6 +10,36 @@ export default function ForgotPassword() {
     
   });
   const { email } = formData;
+
+  const navigate = useNavigate();
+
+ async function onSubmit(e) {
+    e.preventDefault();
+  try {
+
+    const auth = getAuth();
+    await sendPasswordResetEmail(auth, email);
+    
+      
+      toast.success('email enviado!')
+       navigate('/sign-in');
+    
+  }
+      catch(error)  {
+        // console.log(error)
+        toast.error('email incorrecto', {
+          position: 'bottom-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
+        // ..
+      }
+  }
 
   function onChange(e) {
     // console.log(e.target.value);
@@ -29,7 +61,7 @@ export default function ForgotPassword() {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form>
+          <form onSubmit={onSubmit} >
             <input
               type="email"
               id="email"
