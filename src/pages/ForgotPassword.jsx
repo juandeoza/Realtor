@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import OAuth from '../components/OAuth';
 import { toast } from 'react-toastify';
-import { getAuth, sendEmailVerification, sendPasswordResetEmail } from 'firebase/auth';
+import { getAuth,  sendPasswordResetEmail } from 'firebase/auth';
 
 export default function ForgotPassword() {
   const [formData, setFormData] = useState({
@@ -68,7 +68,7 @@ export default function ForgotPassword() {
               value={email}
               onChange={onChange}
               placeholder="Email Address"
-              className="mb-6 w-full px-4 py-2 text-lg text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"
+              className="mb-10 w-full px-4 py-2 text-lg text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"
             />
             
             <div className="  flex justify-between flex-wrap  whitespace-nowrap text-sm sm:text-lg">

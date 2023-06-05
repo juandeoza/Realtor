@@ -85,7 +85,7 @@ createUserWithEmailAndPassword(auth, email, password)
     <section>
       <h1 className="text-3xl text-center mt-6 font-bold">Sign Up</h1>
       <div className="flex justify-center flex-wrap items-center px-6 py-12 max-w-6xl mx-auto ">
-        <div className="md:w-[67%] lg:w-[50%] mb-12 md:mb-6 ">
+        <div className="md:w-[67%] lg:w-[50%] mb-12 md:mb-2 ">
           <img
             src="https://media.istockphoto.com/id/1335296835/es/foto/de-cerca-se-centran-en-las-llaves-mujer-sonriente-agente-de-bienes-ra%C3%ADces-que-vende-apartamento.jpg?s=1024x1024&w=is&k=20&c=psonyxORJ6CsUayk0Yts7ELaYTPsFTvjMRjdxpG4Wwo="
             alt="llave"
@@ -101,7 +101,7 @@ createUserWithEmailAndPassword(auth, email, password)
               value={name}
               onChange={onChange}
               placeholder="Full name"
-              className="mb-6 w-full px-4 py-2 text-lg text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"
+              className="mb-2 w-full px-4 py-2 text-lg text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"
             />
              <input
               type="email"
@@ -109,9 +109,9 @@ createUserWithEmailAndPassword(auth, email, password)
               value={email}
               onChange={onChange}
               placeholder="Email Address"
-              className="mb-6 w-full px-4 py-2 text-lg text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"
+              className="mb-2 w-full px-4 py-2 text-lg text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"
             />
-            <div className="relative mb-6">
+            <div className="relative mb-1">
               <input
                 type={showPassword ? 'text' : 'password'}
                 id="password"
@@ -158,7 +158,7 @@ createUserWithEmailAndPassword(auth, email, password)
               SIGN UP
             </button>
           </form>
-          <div className=' flex items-center my-2 before:border-t  before:flex-1  before:border-gray-400 after:border-t  after:flex-1  after:border-gray-400 '>
+          <div className=' flex items-center my-1 before:border-t  before:flex-1  before:border-gray-400 after:border-t  after:flex-1  after:border-gray-400 '>
             <p
               className="text-center font-semibold mx-4"
             >

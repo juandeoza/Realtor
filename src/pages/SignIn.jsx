@@ -52,7 +52,7 @@ export default function SignIn() {
     <section>
       <h1 className="text-3xl text-center mt-6 font-bold">Sign In</h1>
       <div className="flex justify-center flex-wrap items-center px-6 py-12 max-w-6xl mx-auto ">
-        <div className="md:w-[67%] lg:w-[50%] mb-12 md:mb-6 ">
+        <div className="md:w-[67%] lg:w-[50%] mb-12 md:mb-2 ">
           <img
             src="https://media.istockphoto.com/id/1335296835/es/foto/de-cerca-se-centran-en-las-llaves-mujer-sonriente-agente-de-bienes-ra%C3%ADces-que-vende-apartamento.jpg?s=1024x1024&w=is&k=20&c=psonyxORJ6CsUayk0Yts7ELaYTPsFTvjMRjdxpG4Wwo="
             alt="llave"
